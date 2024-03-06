@@ -1,0 +1,44 @@
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    column-gap: 0px;
+    row-gap: 0px;
+}
+
+.card {
+    border: 5px solid #ffcb05;
+    display: flex;
+    background-color: #2a75bb;
+    border-radius: 15px;
+    text-transform: capitalize;
+    color: white;
+}
+
+.card.flip {
+    animation: flip-card;
+    animation-duration: 0.5s;
+}
+
+@keyframes flip-card {
+    from {
+        transform: rotateY(180deg);
+    }
+
+    to {
+        transform: rotateY(0deg);
+    }
+}
+
+.card:hover {
+    cursor: pointer;
+    animation: flip-card;
+}
+
+.game {
+    display: flex;
+    justify-content: center;
+}
+.current-score {
+    padding-right: 10px;
+}

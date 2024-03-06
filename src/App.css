@@ -1,0 +1,45 @@
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.card {
+    padding: 2em;
+    width: 50%;
+    height: 50%;
+}
+.card-body > img {
+    width: auto;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.header {
+    text-align: start;
+}
+
+.lost-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.scores {
+    border: solid black 1px;
+}
+
+.game-score {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardContainer {
+    width: 1fr;
+}
