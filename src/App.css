@@ -21,7 +21,7 @@
     flex-direction: column;
 }
 .header {
-    text-align: start;
+    text-align: center;
 }
 
 .lost-game {
@@ -42,4 +42,48 @@
 
 .cardContainer {
     width: 1fr;
+}
+
+.startScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+input {
+    height: 30px;
+    width: 150px;
+    padding: 0 15px 0 15px;
+    border: black solid 1px;
+    border-radius: 15px;
+    background-color: #f0f0f0;
+    color: black;
+}
+
+.difficultyChoice {
+    padding-top: 10%;
+    width: 160%;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    grid-column: 1/3;
+}
+
+.diffHead {
+    grid-column: 2/3;
+}
+
+#easy {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+#norm {
+    grid-row: 2/3;
+    grid-column: 2/3;
+}
+#hard {
+    grid-row: 2/3;
+    grid-column: 3/4;
 }
