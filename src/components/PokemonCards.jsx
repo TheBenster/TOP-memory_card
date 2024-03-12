@@ -1,8 +1,10 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
 import PokemonCard from "./PokemonCard";
+import "../stylesheets/ani.css";
 
-const PokemonCards = () => {
+const PokemonCards = ({ cardNum }) => {
+  console.log(cardNum);
   const [pokemons, setPokemons] = useState([]);
   const [clickedOrders, setClickedOrders] = useState([]);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -12,12 +14,11 @@ const PokemonCards = () => {
   let cardContainer = document.querySelector(".card-container");
   let cardDiv = document.getElementById("cardGame");
   let highScoreDiv = document.querySelector(".high-score");
+  let header = document.querySelector(".header");
 
-  // useEffect(() => {
-  //   if (currentScore > highScore) {
-  //     setHighScore(currentScore - 1);
-  //   }
-  // });
+  useEffect(() => {
+    handleWonGame();
+  }, [currentScore]);
 
   const newGame = () => {
     console.log(cardContainer);
@@ -39,7 +40,8 @@ const PokemonCards = () => {
   };
 
   const handleWonGame = () => {
-    if (currentScore === 10) {
+    if (currentScore >= cardNum) {
+      header.setAttribute("id", "gradient");
       setWonGame(true);
     }
   };
@@ -60,11 +62,14 @@ const PokemonCards = () => {
   // Shuffles cards, sends clicked card to array, checks if array contains duplicates
   const handleClick = (order) => {
     shuffleCards();
-
+    console.log(wonGame);
     // if the length of the array is equal to the
     if (!clickedOrders.includes(order)) {
       setClickedOrders((prevClickedOrders) => [...prevClickedOrders, order]);
       setCurrentScore((prevScore) => prevScore + 1);
+      if (clickedOrders.length == cardNum) {
+        setWonGame(true);
+      }
       console.log("currentScore", currentScore);
     } else {
       lostGame();
@@ -74,7 +79,7 @@ const PokemonCards = () => {
   useEffect(() => {
     const fetchPokemons = async () => {
       const promises = [];
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= cardNum; i++) {
         promises.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`));
       }
 
@@ -103,34 +108,43 @@ const PokemonCards = () => {
 
   return (
     <>
-      <div className="game-score">
-        <b style={{ display: highScore == 0 ? "none" : "block" }}>
-          High Score: {highScore}
-        </b>
-        <b className="current-score">Current Score: {currentScore}</b>
-      </div>
-      <div id="cardGame" className="card-container">
-        {isPlaying ? (
-          // Render Pokemon cards when game is ongoing
-          pokemons.map((pokemon, index) => {
-            return (
-              <PokemonCard
-                key={index}
-                name={pokemon.name}
-                image={pokemon.image}
-                order={pokemon.order}
-                onClick={handleClick}
-              />
-            );
-          })
-        ) : (
-          // Render "YOU LOSE!" message when game is over
-          <div>
-            <h2>You hit a duplicate card!</h2>
-            <button onClick={() => newGame()}>Start a new game</button>
+      {!wonGame ? (
+        <div className="Main">
+          <div className="game-score">
+            <b style={{ display: highScore == 0 ? "none" : "block" }}>
+              High Score: {highScore}
+            </b>
+            <b className="current-score">Current Score: {currentScore}</b>
           </div>
-        )}
-      </div>
+          <div id="cardGame" className="card-container">
+            {isPlaying ? (
+              // Render Pokemon cards when game is ongoing
+              pokemons.map((pokemon, index) => {
+                return (
+                  <PokemonCard
+                    key={index}
+                    name={pokemon.name}
+                    image={pokemon.image}
+                    order={pokemon.order}
+                    onClick={handleClick}
+                  />
+                );
+              })
+            ) : (
+              // Render "YOU LOSE!" message when game is over
+              <div>
+                <h2>You hit a duplicate card!</h2>
+                <button onClick={() => newGame()}>Start a new game</button>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="youWon">
+          <h1>LET'S GOOO! You got all cards!</h1>
+          <button onClick={() => newGame()}>Start a new game</button>
+        </div>
+      )}
     </>
   );
 };
