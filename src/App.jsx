@@ -3,21 +3,18 @@ import { useState } from "react";
 // import CardContainer from "./components/CardContainer";
 import PokemonCards from "./components/PokemonCards";
 import "./stylesheets/ani.css";
+import "./index.css";
 let cardLength;
 
 function App() {
   const [choseDiff, setChoseDiff] = useState(false);
-  // let [playerName, setPlayerName] = useState("");
   let [cardNum, setCardNum] = useState();
 
   const handleBttnClick = (difficulty) => {
+    console.log(difficulty);
+
     setCardNum(difficulty);
     setChoseDiff(true);
-    console.log(difficulty);
-  };
-
-  const handleInput = (event) => {
-    setPlayerName(event.target.value);
   };
 
   return (
@@ -27,7 +24,6 @@ function App() {
           choseDiff={choseDiff}
           setChoseDiff={setChoseDiff}
           handleBttnClick={handleBttnClick}
-          handleInput={handleInput}
         />
       ) : (
         <>
@@ -35,23 +31,21 @@ function App() {
             <h1>Pokemon Memory Game</h1>
             <div></div>
           </div>
-          <PokemonCards cardNum={cardNum} />
+          <PokemonCards cardNum={cardNum} setChoseDiff={setChoseDiff} />
         </>
       )}
     </>
   );
 }
 
-let StartScreen = ({ setChoseDiff, handleBttnClick, handleInput }) => {
+let StartScreen = ({ setChoseDiff, handleBttnClick }) => {
   // add gradient thing later
   let button = document.querySelector(".diff-button");
 
   return (
     <div className="startScreen">
-      <label htmlFor="name">Enter Your Name:</label>
-      <input onChange={handleInput}></input>
       <div className="difficultyChoice">
-        <p className="diffHead">Choose your difficulty</p>
+        <h2 className="diffHead">Choose your difficulty</h2>
         <button
           onClick={() => handleBttnClick(5)}
           className="diff-button"
