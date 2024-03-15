@@ -34,3 +34,22 @@
         background-position: 50% 0%;
     }
 }
+
+.diff-button {
+    background: #212121;
+    transition: GradientAnim 0.7s ease-in-out;
+}
+
+.diff-button:hover {
+    opacity: 0.8;
+    animation: GradientAnim var(--anim-duration) ease-in-out 5s infinite
+        alternate;
+    background-size: 200% 200%;
+    color: black;
+    background-image: linear-gradient(
+        135deg,
+        var(--overlay-color-2) 0%,
+        var(--overlay-color-1) 100%
+    );
+    transition-duration: 0.7s;
+}
