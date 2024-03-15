@@ -2,8 +2,9 @@ import { React, useState, useEffect } from "react";
 import axios from "axios";
 import PokemonCard from "./PokemonCard";
 import "../stylesheets/ani.css";
+import "../index.css";
 
-const PokemonCards = ({ cardNum }) => {
+const PokemonCards = ({ cardNum, setChoseDiff }) => {
   console.log(cardNum);
   const [pokemons, setPokemons] = useState([]);
   const [clickedOrders, setClickedOrders] = useState([]);
@@ -141,8 +142,14 @@ const PokemonCards = ({ cardNum }) => {
         </div>
       ) : (
         <div className="youWon">
-          <h1>LET'S GOOO! You got all cards!</h1>
-          <button onClick={() => newGame()}>Start a new game</button>
+          <h1>Let's go! You got all cards!</h1>
+          <button
+            onClick={() => {
+              setChoseDiff(false);
+            }}
+          >
+            Change Difficulty
+          </button>
         </div>
       )}
     </>
