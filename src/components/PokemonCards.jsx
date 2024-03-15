@@ -64,6 +64,15 @@ const PokemonCards = ({ cardNum, setChoseDiff }) => {
   const handleClick = (order) => {
     shuffleCards();
     console.log(wonGame);
+    let singleCards = document.querySelectorAll(".card");
+    let cardDivs = [...singleCards];
+    cardDivs.forEach((cardItem) => {
+      cardItem.classList.add("spin-x");
+      setTimeout(() => {
+        cardItem.classList.remove("spin-x");
+      }, 200);
+    });
+
     // if the length of the array is equal to the
     if (!clickedOrders.includes(order)) {
       setClickedOrders((prevClickedOrders) => [...prevClickedOrders, order]);
